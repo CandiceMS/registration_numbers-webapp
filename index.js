@@ -3,8 +3,6 @@ const app = express();
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 
-let RegistrationNumbers = require('./registration_numbers');
-
 const postgres = require('pg');
 const Pool = postgres.Pool;
 
@@ -20,9 +18,10 @@ const pool = new Pool({
   ssl:useSSL
 })
 
+let RegistrationNumbers = require('./registration_numbers');
 const regNumbers = RegistrationNumbers(pool);
-const RegistrationRoutes = require('./registration_routes');
-const RegRoutesFactory = RegistrationRoutes(regNumbers);
+const registrationRoutes = require('./registration_routes');
+const RegRoutesFactory = registrationRoutes(regNumbers);
 
 
 
@@ -59,9 +58,6 @@ app.post('/registration_numbers', RegRoutesFactory.registrations);
 
 // app.get('/greeted', greetRoutesFactory.greeted);
 
-app.get('/filter/:location', RegRoutesFactory.filter);
+// app.get('/filter/:location', RegRoutesFactory.filter);
 
-app.post('/clear', RegRoutesFactory.clear);
-
-app.get('');
-// back button route
+// app.post('/clear', RegRoutesFactory.clear);

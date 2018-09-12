@@ -26,6 +26,9 @@
         <button type="submit" name="locationBtn" class="locateBtn">Please Select A Location</button>
         <div class="locationList">
           <ul class="locationsAdd">
+            {{#each town}}
+            <li></li>
+            {{/each}}
             <!-- <li><input type="button" name="location" value="Cape Town"></li>
             <li><input type="button" name="location" value="Eastern Cape"></li>
             <li><input type="button" name="location" value="Gauteng"></li> -->
@@ -33,5 +36,10 @@
         </div>
       </div>
       <div class="row divDisplay">
+          <table>
+              {{#each registration}}
+              <td></td>
+              {{/each}}
+          </table>
       </div>
     </div>

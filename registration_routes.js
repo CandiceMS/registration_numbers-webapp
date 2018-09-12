@@ -1,6 +1,4 @@
-module.exports = function(RegistrationNumbers){
-
-    const factory = RegistrationNumbers();
+module.exports = function(factory){
 
     async function registrations(req, res) {
         let locations = req.body.townInput;
