@@ -1,0 +1,37 @@
+{{{body}}}
+
+<div class="container">
+      <div class="row">
+        <h1 style="color: navy">Registration Numbers</h1>
+      </div>
+      <div class="row">
+        <label for="RegInput">Please Enter A Registration Number</label>
+      </div>
+      <div class="row">
+        <form class="" action="/registration_numbers" method="post">
+         <input type="text" name="RegInput" value="" class="col-4" placeholder="CA123">
+      </div>
+      <div class="row">
+        <label for="LocationInput">Please Enter A Location</label>
+      </div>
+      <div class="row">
+         <input type="text" name="LocationInput" value="" class="col-4" placeholder="Cape Town">
+        </form>
+      </div>
+      <div class="row">
+        <button type="submit" name="AddBtn" class="col-4">ADD</button>
+        <button type="submit" name="clearBtn" class="col-3">RESET</button>
+      </div>
+      <div class="row dropList">
+        <button type="submit" name="locationBtn" class="locateBtn">Please Select A Location</button>
+        <div class="locationList">
+          <ul class="locationsAdd">
+            <!-- <li><input type="button" name="location" value="Cape Town"></li>
+            <li><input type="button" name="location" value="Eastern Cape"></li>
+            <li><input type="button" name="location" value="Gauteng"></li> -->
+          </ul>
+        </div>
+      </div>
+      <div class="row divDisplay">
+      </div>
+    </div>

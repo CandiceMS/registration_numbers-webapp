@@ -1,15 +1,17 @@
-module.exports = function AddRegistrations(pool) {
-        var reg = '';
-        var location = '';
+module.exports = function RegistrationNumbers(pool) {
+        
+        
 
         function regUpper(regInput) {
           regInput = regInput.replace(/\s+/g, '');
           // the above is a regular expression to remove all whitespace.
-           var regUp = regInput.toUpperCase();
+          var reg = '';
+          let regUp = regInput.toUpperCase();
             reg = regUp;
             return reg;
           }
         function capitalise(location_Input) {
+          var location = '';
           var lower = location_Input.toLowerCase();
           if (lower.includes(" ")) {
             var lowerSplit = lower.split(' ');
@@ -30,6 +32,9 @@ module.exports = function AddRegistrations(pool) {
           if (reg == "" || location == "") {
             return ;
           }
+
+          regUpper();
+          capitalise();
 
           let rowResult = await pool.query('select * from towns where town_name = $1', [location])
           let rowResult2 = await pool.query('select * from reg_numbers where reg_number = $1', [reg])
@@ -53,7 +58,7 @@ module.exports = function AddRegistrations(pool) {
               return returnRows.rows;
           }
 
-        function returnFilter(location) {
+        async function returnFilter(location) {
           let townID = await pool.query('select id from towns where town_name = $1', [location])
           let filterReg = await pool.query('select reg_number from reg_numbers where reg_number.town_id = $1', [townID.rows])
             return filterReg.rows;

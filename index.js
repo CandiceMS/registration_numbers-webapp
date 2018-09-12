@@ -3,7 +3,7 @@ const app = express();
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 
-let Greetings = require('./greetings');
+let RegistrationNumbers = require('./registration_numbers');
 
 const postgres = require('pg');
 const Pool = postgres.Pool;
@@ -55,7 +55,7 @@ app.get('/', function(req, res) {
 //     res.redirect('/');
 // });
 
-app.post('/registration_numbers', RegRoutesFactory.reg-numbers);
+app.post('/registration_numbers', RegRoutesFactory.registrations);
 
 // app.get('/greeted', greetRoutesFactory.greeted);
 
