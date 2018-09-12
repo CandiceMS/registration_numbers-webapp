@@ -1,14 +1,14 @@
 drop table towns;
-drop table regNumbers
+drop table reg_numbers
 
-create table town(
+create table towns(
     id serial not null primary key,
-    townName text not null unique,
+    town_name text not null unique,
 )
 
-create table regNumbers(
+create table reg_numbers(
     id serial not null primary key,
-    regNumber text not null unique,
+    reg_number text not null unique,
     town_id int,
 	foreign key (town_id) references town(id)
 )

@@ -55,11 +55,11 @@ app.get('/', function(req, res) {
 //     res.redirect('/');
 // });
 
-app.post('/registration_numbers', RegRoutesFactory.greetings);
+app.post('/registration_numbers', RegRoutesFactory.reg-numbers);
 
 // app.get('/greeted', greetRoutesFactory.greeted);
 
-app.get('/filter/:location', RegRoutesFactory.greetedUser);
+app.get('/filter/:location', RegRoutesFactory.filter);
 
 app.post('/clear', RegRoutesFactory.clear);
 
