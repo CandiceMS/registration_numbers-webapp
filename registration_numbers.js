@@ -1,31 +1,30 @@
 module.exports = function(pool) {
-        
-        
 
-        function regUpper(regInput) {
-          regInput = regInput.replace(/\s+/g, '');
-          // the above is a regular expression to remove all whitespace.
-          var reg = '';
-          let regUp = regInput.toUpperCase();
-            reg = regUp;
-            return reg;
-          }
-        function capitalise(location_Input) {
-          var location = '';
-          var lower = location_Input.toLowerCase();
-          if (lower.includes(" ")) {
-            var lowerSplit = lower.split(' ');
-            var caps = [];
-            for (var i = 0; i < lowerSplit.length; i++) {
-              caps.push((lowerSplit[i].charAt(0).toUpperCase() + lowerSplit[i].slice(1)));
-            }
-            location = caps.join(" ");
-          }
-          else {
-            location = lower.charAt(0).toUpperCase() + lower.slice(1);
-          }
-            return location;
-        }
+  //       function regUpper(regInput) {
+  //         var reg = '';
+  //       //  regInput = regInput.replace(/\s+/g, '');
+  //         // the above is a regular expression to remove all whitespace.
+  //         // regInput = regInput.trim();
+  //         let regUp = regInput.toUpperCase();
+  //           reg = regUp;
+  //           return reg;
+  //       }
+  //       function capitalise(location_Input) {
+  //         var location = '';
+  //         var lower = location_Input.toLowerCase();
+  //         if (lower.includes(" ")) {
+  //           var lowerSplit = lower.split(' ');
+  //           var caps = [];
+  //           for (var i = 0; i < lowerSplit.length; i++) {
+  //             caps.push((lowerSplit[i].charAt(0).toUpperCase() + lowerSplit[i].slice(1)));
+  //           }
+  //           location = caps.join(" ");
+  //         }
+  //         else {
+  //           location = lower.charAt(0).toUpperCase() + lower.slice(1);
+  //         }
+  //           return location;
+  //       }
         
         async function storeInDB(reg, location) {
 
@@ -33,28 +32,29 @@ module.exports = function(pool) {
             return ;
           }
 
-          regUpper();
-          capitalise();
+              // regUpper();
+              // capitalise();
 
           let rowResult = await pool.query('select * from towns where town_name = $1', [location])
           let rowResult2 = await pool.query('select * from reg_numbers where reg_number = $1', [reg])
              if(rowResult.rowCount === 0){
-              await pool.query('insert into towns town_name value($1)', [location])
+              await pool.query('insert into towns(town_name) values($1)', [location])
              }
              if(rowResult2.rowCount === 0){
-              await pool.query('insert into reg_numbers reg_number($1)', [reg])
+              await pool.query('insert into reg_numbers(reg_number) values($1)', [reg])
              }
-
-             await pool.query('select town.town_name, reg_numbers.reg_number from towns inner join reg_numbers on town.id = reg_numbers.town_id')
+             await pool.query('select * from towns join reg_numbers on towns.id = reg_numbers.town_id')
         }
 
         async function returnRegNumbers() {
           let returnRows = await pool.query('select * from reg_numbers')
+          console.log(returnRows.rows);
             return returnRows.rows;
         }
 
         async function returnTowns() {
             let returnRows = await pool.query('select * from towns')
+            console.log(returnRows.rows);
               return returnRows.rows;
           }
 
@@ -74,8 +74,8 @@ module.exports = function(pool) {
         }
       
       return {
-          regUpper,
-          capitalise,
+          //  regUpper,
+          //  capitalise,
           storeInDB,
           returnRegNumbers,
           returnTowns,

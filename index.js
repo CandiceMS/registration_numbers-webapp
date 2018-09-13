@@ -56,8 +56,6 @@ app.get('/', function(req, res) {
 
 app.post('/registration_numbers', RegRoutesFactory.registrations);
 
-// app.get('/greeted', greetRoutesFactory.greeted);
+app.get('/filter/:location', RegRoutesFactory.filtered);
 
-// app.get('/filter/:location', RegRoutesFactory.filter);
-
-// app.post('/clear', RegRoutesFactory.clear);
+app.post('/clear', RegRoutesFactory.clear);
