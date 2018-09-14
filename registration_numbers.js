@@ -40,27 +40,34 @@ module.exports = function(pool) {
              if(rowResult.rowCount === 0){
               await pool.query('insert into towns(town_name) values($1)', [location])
              }
+
+             let townColumn = await pool.query('select id from towns where town_name = $1', [location])
+             let townId = townColumn.rows[0].id;
+
              if(rowResult2.rowCount === 0){
-              await pool.query('insert into reg_numbers(reg_number) values($1)', [reg])
+              await pool.query('insert into reg_numbers(reg_number, town_id) values($1, $2)', [reg, townId])
              }
-             await pool.query('select * from towns join reg_numbers on towns.id = reg_numbers.town_id')
+            // no need to join tables because line above assigns values as needed. Line below is for a join.
+            //  await pool.query('select * from towns join reg_numbers on towns.id = reg_numbers.town_id')
         }
 
         async function returnRegNumbers() {
           let returnRows = await pool.query('select * from reg_numbers')
-          console.log(returnRows.rows);
+          // console.log(returnRows.rows);
             return returnRows.rows;
         }
 
         async function returnTowns() {
             let returnRows = await pool.query('select * from towns')
-            console.log(returnRows.rows);
+            // console.log(returnRows.rows);
               return returnRows.rows;
           }
 
         async function returnFilter(location) {
-          let townID = await pool.query('select id from towns where town_name = $1', [location])
-          let filterReg = await pool.query('select reg_number from reg_numbers where reg_number.town_id = $1', [townID.rows])
+          console.log(location);
+          let townColumn = await pool.query('select id from towns where town_name = $1', [location])
+             let townId = townColumn.rows[0].id;
+          let filterReg = await pool.query('select reg_number from reg_numbers where reg_numbers.town_id = $1', [townId])
             return filterReg.rows;
         }
 

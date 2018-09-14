@@ -56,6 +56,6 @@ app.get('/', function(req, res) {
 
 app.post('/registration_numbers', RegRoutesFactory.registrations);
 
-app.get('/filter/:location', RegRoutesFactory.filtered);
+app.get('/filter/:town_name', RegRoutesFactory.filtered);
 
 app.post('/clear', RegRoutesFactory.clear);

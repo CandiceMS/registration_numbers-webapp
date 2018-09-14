@@ -12,15 +12,15 @@ module.exports = function(factory){
      }
 
     async function filtered(req, res) {
-        res.render('filter', {
-           town_name: req.params.town_name,
-           townReg: await factory.returnFilter(req.params.town_name)
+        res.render('home', {
+           registration: await factory.returnFilter(req.params.town_name),
+           town: await factory.returnTowns()
         });
      }
 
     async function clear(req, res) {
-        await factory.resetTowns();
         await factory.resetReg();
+        await factory.resetTowns();
        res.redirect('/');
      } 
      
