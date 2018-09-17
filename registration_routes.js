@@ -4,6 +4,9 @@ module.exports = function(factory){
         let location = req.body.townInput;
         let regNumber = req.body.regNumberInput;
          await factory.storeInDB(regNumber, location);
+// add regUpper();
+// add capitalise();
+
        res.render('home', {
         //  alert: greet.alert(name, language),
          registration: await factory.returnRegNumbers(),

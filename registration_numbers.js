@@ -1,39 +1,39 @@
 module.exports = function(pool) {
 
-  //       function regUpper(regInput) {
-  //         var reg = '';
-  //       //  regInput = regInput.replace(/\s+/g, '');
-  //         // the above is a regular expression to remove all whitespace.
-  //         // regInput = regInput.trim();
-  //         let regUp = regInput.toUpperCase();
-  //           reg = regUp;
-  //           return reg;
-  //       }
-  //       function capitalise(location_Input) {
-  //         var location = '';
-  //         var lower = location_Input.toLowerCase();
-  //         if (lower.includes(" ")) {
-  //           var lowerSplit = lower.split(' ');
-  //           var caps = [];
-  //           for (var i = 0; i < lowerSplit.length; i++) {
-  //             caps.push((lowerSplit[i].charAt(0).toUpperCase() + lowerSplit[i].slice(1)));
-  //           }
-  //           location = caps.join(" ");
-  //         }
-  //         else {
-  //           location = lower.charAt(0).toUpperCase() + lower.slice(1);
-  //         }
-  //           return location;
-  //       }
+        function regUpper(regInput) {
+          var reg = '';
+        let regInput = regInput.replace(/\s+/g, '');
+          // the above is a regular expression to remove all whitespace.
+          // regInput = regInput.trim();
+          let regUp = regInput.toUpperCase();
+            reg = regUp;
+            return reg;
+        }
+        function capitalise(location_Input) {
+          var location = '';
+          var lower = location_Input.toLowerCase();
+          if (lower.includes(" ")) {
+            var lowerSplit = lower.split(' ');
+            var caps = [];
+            for (var i = 0; i < lowerSplit.length; i++) {
+              caps.push((lowerSplit[i].charAt(0).toUpperCase() + lowerSplit[i].slice(1)));
+            }
+            location = caps.join(" ");
+          }
+          else {
+            location = lower.charAt(0).toUpperCase() + lower.slice(1);
+          }
+            return location;
+        }
         
-        async function storeInDB(reg, location) {
+        async function storeInDB(regInput, locationInput) {
+
+          let reg = regInput.toLowerCase();
+          let location = locationInput.toLowerCase();
 
           if (reg == "" || location == "") {
             return ;
           }
-
-              // regUpper();
-              // capitalise();
 
           let rowResult = await pool.query('select * from towns where town_name = $1', [location])
           let rowResult2 = await pool.query('select * from reg_numbers where reg_number = $1', [reg])
@@ -53,13 +53,11 @@ module.exports = function(pool) {
 
         async function returnRegNumbers() {
           let returnRows = await pool.query('select * from reg_numbers')
-          // console.log(returnRows.rows);
             return returnRows.rows;
         }
 
         async function returnTowns() {
             let returnRows = await pool.query('select * from towns')
-            // console.log(returnRows.rows);
               return returnRows.rows;
           }
 
@@ -81,8 +79,8 @@ module.exports = function(pool) {
         }
       
       return {
-          //  regUpper,
-          //  capitalise,
+          regUpper,
+          capitalise,
           storeInDB,
           returnRegNumbers,
           returnTowns,

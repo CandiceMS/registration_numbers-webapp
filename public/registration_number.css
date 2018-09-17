@@ -7,6 +7,10 @@ input {
     height: 2rem;
     font-size: 16px;
     color: navy;
+    border-radius: 5%;
+    border: 1px solid grey;
+    font-size: 18px;
+    height: 2.5rem;
   }
   output {
     height: 2rem;
@@ -25,9 +29,6 @@ input {
     font-weight: 300;
     border: 1px solid grey;
   }
-  .regInput {
-  
-  }
   .displayNone {
     display: none;
   }
@@ -38,12 +39,6 @@ input {
   .dropList {
     position: relative;
     display: inline-block;
-  }
-  .locateBtn {
-    border-radius: 5%;
-    border: 1px solid grey;
-    font-size: 18px;
-    height: 2.5rem;
   }
   .locationList {
     display: none;
@@ -63,4 +58,7 @@ input {
   .filtered {
     padding: 0.5rem;
     font-size: 18px;
+  }
+  .restrictPosition{
+     margin-left: 15%;
   }
