@@ -69,7 +69,7 @@ module.exports = function(pool) {
             return filterReg.rows;
         }
 
-      async function resetReg() {
+        async function resetReg() {
           let resetRegNumbers = await pool.query('delete from reg_numbers');
           return resetRegNumbers.rows;
         }
@@ -77,6 +77,16 @@ module.exports = function(pool) {
             let reset = await pool.query('delete from towns');
             return reset.rows;
         }
+
+        async function addRestrictions(condition){
+          if(condition == ""){
+            return;
+          }
+          
+          else if(condition == "start with"){
+
+          }
+        };
       
       return {
           regUpper,
@@ -86,7 +96,8 @@ module.exports = function(pool) {
           returnTowns,
           returnFilter,
           resetReg,
-          resetTowns
+          resetTowns,
+          addRestrictions
         }
       }
       
