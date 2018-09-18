@@ -1,32 +1,8 @@
 module.exports = function(pool) {
 
-        function regUpper(regInput) {
-          var reg = '';
-        let regInput = regInput.replace(/\s+/g, '');
-          // the above is a regular expression to remove all whitespace.
-          // regInput = regInput.trim();
-          let regUp = regInput.toUpperCase();
-            reg = regUp;
-            return reg;
-        }
-        function capitalise(location_Input) {
-          var location = '';
-          var lower = location_Input.toLowerCase();
-          if (lower.includes(" ")) {
-            var lowerSplit = lower.split(' ');
-            var caps = [];
-            for (var i = 0; i < lowerSplit.length; i++) {
-              caps.push((lowerSplit[i].charAt(0).toUpperCase() + lowerSplit[i].slice(1)));
-            }
-            location = caps.join(" ");
-          }
-          else {
-            location = lower.charAt(0).toUpperCase() + lower.slice(1);
-          }
-            return location;
-        }
+  // add a reg trim function to remove all white space
         
-        async function storeInDB(regInput, locationInput) {
+        async function storeInDB(regInput, locationInput, conditionInput) {
 
           let reg = regInput.toLowerCase();
           let location = locationInput.toLowerCase();
@@ -40,7 +16,9 @@ module.exports = function(pool) {
              if(rowResult.rowCount === 0){
               await pool.query('insert into towns(town_name) values($1)', [location])
              }
-
+          
+          addRestrictions(conditionInput, location);
+             
              let townColumn = await pool.query('select id from towns where town_name = $1', [location])
              let townId = townColumn.rows[0].id;
 
@@ -78,19 +56,17 @@ module.exports = function(pool) {
             return reset.rows;
         }
 
-        async function addRestrictions(condition){
-          if(condition == ""){
+        async function addRestrictions(conditionInput, location){
+          if(conditionInput == ""){
             return;
           }
-          
-          else if(condition == "start with"){
-
+          if(conditionInput != ""){
+            let conditionSplit = conditionInput.split(" ");
+            await pool.query('update towns set condition = $1, condition_value = $2 where town_name = $3', [conditionSplit[0], conditionSplit[2], location])
           }
         };
       
       return {
-          regUpper,
-          capitalise,
           storeInDB,
           returnRegNumbers,
           returnTowns,

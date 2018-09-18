@@ -55,10 +55,18 @@ input {
   .divDisplay {
     margin-left: 30%;
   }
+  .divDisplay td{
+    text-transform: uppercase;
+    padding: 0.5rem;
+  }
   .filtered {
     padding: 0.5rem;
     font-size: 18px;
   }
   .restrictPosition{
      margin-left: 15%;
+  }
+  a {
+    text-decoration: none;
+    text-transform: capitalize;
   }
