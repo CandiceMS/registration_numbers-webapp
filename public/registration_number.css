@@ -1,3 +1,12 @@
+
+.townRadios {
+  margin-top: 1rem;
+}
+
+.eachRadio {
+  margin-left: 2rem;
+}
+
 input {
     text-indent: 1rem;
     font-size: 20px;
@@ -48,31 +57,33 @@ input {
     position: absolute;
     z-index: 1;
   }
-  .locationList input:hover {
+  .locationsAdd input:hover {
     color: navy;
     background-color: #6495ED;
   }
   .divDisplay {
     margin-left: 30%;
+    height: 20%;
   }
   .divDisplay td{
     text-transform: uppercase;
     padding: 0.5rem;
+    border: 1px solid black;
+    padding: 1rem;
+    border-radius: 4px;
   }
   .filtered {
     padding: 0.5rem;
     font-size: 18px;
   }
-  .restrictPosition{
-     margin-left: 15%;
-  }
+  
   a {
     text-decoration: none;
     text-transform: capitalize;
   }
   .restrictCaption {
     font-size: 12px;
-    color: navy;
+    color: darkorange;
     margin-left: 40%; 
   }
   i {
@@ -81,9 +92,17 @@ input {
   }
   .alert-box {
     float: right;
-    margin-right: 30%;
+    margin-right: 40%;
+    width: 30%;
+    height: 10%;
   }
   .alert {
     color: red;
     font-size: 14px;
   }
+  .confirmMsg {
+    font-size: 22px;
+    color: darkslategray;
+  }
+  
+  

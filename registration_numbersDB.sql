@@ -4,8 +4,7 @@ drop table if exists reg_numbers;
 create table towns(
     id serial not null primary key,
     town_name text not null unique,
-    condition text,
-    condition_value text unique
+    town_code text unique
 );
 
 create table reg_numbers(

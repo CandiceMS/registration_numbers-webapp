@@ -3,28 +3,30 @@
 <div class="container">
       <div class="row">
         <h1 style="color: navy">Registration Numbers</h1>
+        <hr>
       </div>
       <div class="row">
-        <label for="LocationInput">Please Enter A Location</label>
-        <label for="restrictInput" class="restrictPosition">Set Restrictions For A Location</label>
+        <label for="LocationInput">Please Select A Location</label>
+        
       </div>
       <div class="row">
         <form class="" action="/registration_numbers" method="post">
-         <input type="text" name="townInput" value="" class="col-4" placeholder="Cape Town">
-         <input type="text" name="restrictInput" list="restrictOptions" value="" class="col-5" placeholder="registration numbers should... ">
-         <datalist id="restrictOptions">
-           <option value="start with "></option>
-           <option value="end with "></option>
-         </datalist>
+         <div class="townRadios">
+           <input type="radio" value="cape town" name="townsBtn" class="eachRadio" id="radio1">
+            <label for="radio1">Cape Town</label>
+           <input type="radio" value="paarl" name="townsBtn" class="eachRadio" id="radio2">
+            <label for="radio2">Paarl</label>
+           <input type="radio" value="bellville" name="townsBtn" class="eachRadio" id="radio3">
+            <label for="radio3">Bellville</label>
+           <input type="radio" value="stellenbosch" name="townsBtn" class="eachRadio" id="radio4">
+            <label for="radio4">Stellenbosch</label>
+         </div>
       </div>
-      <div class="restrictCaption"><i class="fas fa-info-circle"></i> start with CA</div>
       <div class="row">
-        
         <label for="RegInput">Please Enter A Registration Number</label>
       </div>
       <div class="alert-box">
       <div class="alert">{{messages.location}}</div>
-      <div class="alert">{{messages.validReg}}</div>
       <div class="alert">{{messages.regNum}}</div>
       </div>
       <div class="row">
@@ -37,10 +39,11 @@
         <button type="submit" name="clearBtn" class="col-3">RESET</button>
         </form>
       </div>
+      <hr>
       <div class="row dropList">
         <form action="/filter" method="get">
-        <button type="submit" name="locationBtn" class="locateBtn">Please Select A Location</button>
-        <div class="locationList">
+        <button type="submit" name="locationBtn" class="locateBtn">Filter Registrations By Location</button>
+        <div class="">
           <ul class="locationsAdd">
             {{#each town}}
             <li><a href="/filter/{{town_name}}">{{town_name}}</a></li>
@@ -48,13 +51,17 @@
           </ul>
         </div>
         </form>
-      </div>
-      <div class="row divDisplay">
+         <div class="row divDisplay">
           <table>
               {{#each registration}}
               <td>{{reg_number}}</td>
               {{/each}}
           </table>
       </div>
+      </div>
+     
+      <div class="confirmMsg">{{confirm}}</div>
     </div>
+
+     {{!-- pattern="[A-Z a-z]{12,}" title="Please complete the validation code: e.g, start with CA" --}}
     

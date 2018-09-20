@@ -1,23 +1,22 @@
 module.exports = function(factory){
 
     async function registrations(req, res) {
-        let location = req.body.townInput;
-        if(location === ''){
-            req.flash('location', 'Please enter a location')
+        let location = req.body.townsBtn;
+        console.log(location);
+        if(!location){
+            req.flash('location', 'Please select a location')
         }
         let regNumber = req.body.regNumberInput;
         if(regNumber === ''){
             req.flash('regNum', 'Please enter a registration to be added')
         }
-        let conditionSet = req.body.restrictInput;
-        if(conditionSet === ''){
-            req.flash('validReg', 'Please enter a validation code for registration numbers')
-        }
-         await factory.storeInDB(regNumber, location, conditionSet);
+        // await factory.storeInDB(regNumber, location);
+
        res.render('home', {
-        //  alert: .alert(param1, param2),
+         confirm: await factory.storeInDB(regNumber, location),  
          registration: await factory.returnRegNumbers(),
          town: await factory.returnTowns()
+         
        });
      }
 

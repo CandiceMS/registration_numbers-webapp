@@ -1,54 +1,49 @@
 module.exports = function(pool) {
-
-  // add a reg trim function to remove all white space
         
-        async function storeInDB(regInput, locationInput, conditionInput) {
+        async function storeInDB(regInput, locationInput) {
 
-          if (regInput == "" || locationInput == "" || conditionInput == "") {
+          if (regInput == "" || !locationInput) {
             return ;
           }
 
-          // let regTrim = regInput.trim();
           let reg = regInput.toLowerCase();
-          let location = locationInput.toLowerCase();
-          let condition = conditionInput.toLowerCase();
-          let conditionSplit = condition.split(" ");
+          let townCode = '';
 
-          if(conditionSplit.length !== 3){
-            return;
+          if(locationInput === "cape town") {
+            townCode = "ca";
+          }
+          if(locationInput === "paarl") {
+            townCode = "cj";
+          }
+          if(locationInput === "bellville") {
+            townCode = "cy";
+          }
+          if(locationInput === "stellenbosch") {
+            townCode = "cl";
           }
 
-          let rowResult = await pool.query('select * from towns where town_name = $1', [location])
+          let rowResult = await pool.query('select * from towns where town_name = $1', [locationInput])
           let rowResult2 = await pool.query('select * from reg_numbers where reg_number = $1', [reg])
 
-            if(rowResult.rowCount === 0){
-              await pool.query('insert into towns(town_name) values($1)', [location])
-             }
-
-            if(conditionSplit.length > 2){
-              await pool.query('update towns set condition = $1, condition_value = $2 where town_name = $3', [conditionSplit[0], conditionSplit[2], location])
-            }
-            else {
-              return;
-            }
+          if(rowResult.rowCount === 0){
+            await pool.query('insert into towns(town_name, town_code) values($1, $2)', [locationInput, townCode])
+          }
              
-          let townColumn = await pool.query('select id from towns where town_name = $1', [location])
+          let townColumn = await pool.query('select id from towns where town_name = $1', [locationInput])
           let townId = townColumn.rows[0].id;
 
-          let conCon_val = await pool.query('select condition, condition_value from towns where town_name = $1', [location])
+          // let townCodeCol = await pool.query('select town_code from towns where town_name = $1', [locationInput])
 
-            if(rowResult2.rowCount === 0){
-               if(conCon_val.rows[0].condition == "start" && startRestrict(reg, location)){
-                 await pool.query('insert into reg_numbers(reg_number, town_id) values($1, $2)', [reg, townId])
-              }
-               if(conCon_val.rows[0].condition == "end" && endRestrict(reg, location)){
-                 await pool.query('insert into reg_numbers(reg_number, town_id) values($1, $2)', [reg, townId])
-               }
-            // console.log(rowResult.rows);
-            console.log(conCon_val.rows);
+          if(rowResult2.rowCount === 0){
+           if(reg.startsWith(townCode)){
+             await pool.query('insert into reg_numbers(reg_number, town_id) values($1, $2)', [reg, townId])
+              return "You added a registration number for this town!"
             }
+           else {
+              return "Sorry. This is not a valid registration number for this town"
+            }
+          }
         }
-        
 
         async function returnRegNumbers() {
           let returnRows = await pool.query('select * from reg_numbers')
@@ -60,9 +55,8 @@ module.exports = function(pool) {
               return returnRows.rows;
           }
 
-        async function returnFilter(location) {
-          console.log(location);
-          let townColumn = await pool.query('select id from towns where town_name = $1', [location])
+        async function returnFilter(locationInput) {
+          let townColumn = await pool.query('select id from towns where town_name = $1', [locationInput])
              let townId = townColumn.rows[0].id;
           let filterReg = await pool.query('select reg_number from reg_numbers where reg_numbers.town_id = $1', [townId])
             return filterReg.rows;
@@ -77,19 +71,9 @@ module.exports = function(pool) {
             return reset.rows;
         }
 
-        async function startRestrict(reg, location){
-          let selectRow = await pool.query('select * from towns where town_name = $1', [location])
-          if(reg.startsWith(selectRow.condition_value)){
-            return true;
-          }
-          else {
-            return false;
-          }
-        }
-
-        async function endRestrict(reg, location){
-          let selectRow = await pool.query('select * from towns where town_name = $1', [location])
-          if(reg.endsWith(selectRow.condition_value)){
+        async function startWith(reg, locationInput){
+          let selectRow = await pool.query('select * from towns where town_name = $1', [locationInput])
+          if(reg.startsWith(selectRow.town_code)){
             return true;
           }
           else {
@@ -103,15 +87,12 @@ module.exports = function(pool) {
           returnTowns,
           returnFilter,
           resetReg,
-          resetTowns,
-          startRestrict,
-          endRestrict
+          resetTowns
         }
       }
       
-      // add flash to inform of reg, location and validation added.
-      // add flash for prompt for 3 parameters
-      // if rowResult.rowCount === 1 ...
+      
+      
   
     
   
