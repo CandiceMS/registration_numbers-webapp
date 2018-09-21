@@ -5,12 +5,12 @@ node_js:
   - "8.9.4"
 
 env:
-     - DATABASE_URL=postgresql://postgres@localhost:5432/registration_numbersDB
+     - DATABASE_URL=postgresql://postgres@localhost:5432/registration_numbersdb
     
 
 before_script:
-  - psql -c 'create database  registration_numbersDB;' -U postgres
-  - psql -U postgres -d registration_numbersDB -a -f registrationDB.sql
+  - psql -c 'create database  registration_numbersdb;' -U postgres
+  - psql -U postgres -d registration_numbersdb -a -f registrationDB.sql
 
 addons:
     apt:
