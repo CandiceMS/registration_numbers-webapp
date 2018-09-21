@@ -70,16 +70,6 @@ module.exports = function(pool) {
             let reset = await pool.query('delete from towns');
             return reset.rows;
         }
-
-        async function startWith(reg, locationInput){
-          let selectRow = await pool.query('select * from towns where town_name = $1', [locationInput])
-          if(reg.startsWith(selectRow.town_code)){
-            return true;
-          }
-          else {
-            return false;
-          }
-        }
       
       return {
           storeInDB,

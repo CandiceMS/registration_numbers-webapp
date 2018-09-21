@@ -1,4 +1,7 @@
-
+.container {
+  margin-left: 2%;
+  margin-right: 4%;
+}
 .townRadios {
   margin-top: 1rem;
 }
@@ -38,33 +41,33 @@ input {
     font-weight: 300;
     border: 1px solid grey;
   }
-  .displayNone {
-    display: none;
-  }
   .display_Reg {
-    display: inline;
+    /* display: inline; */
     font-size: 18px;
   }
   .dropList {
     position: relative;
     display: inline-block;
   }
-  .locationList {
+  .locationsAdd {
     display: none;
+    color: navy;
+    border: 1px solid grey;
+    text-align: center;
+    padding: 8px;
+    width: 15rem;
   }
-  .dropList:hover .locationList {
+  .dropList:hover .locationsAdd {
     display: block;
     position: absolute;
     z-index: 1;
   }
-  .locationsAdd input:hover {
-    color: navy;
-    background-color: #6495ED;
-  }
+  
   .divDisplay {
     margin-left: 30%;
-    height: 20%;
+    margin-right: 20%; 
   }
+  
   .divDisplay td{
     text-transform: uppercase;
     padding: 0.5rem;
@@ -81,19 +84,10 @@ input {
     text-decoration: none;
     text-transform: capitalize;
   }
-  .restrictCaption {
-    font-size: 12px;
-    color: darkorange;
-    margin-left: 40%; 
-  }
-  i {
-    color: #918A8A;
-    font-size: 16px;
-  }
   .alert-box {
     float: right;
-    margin-right: 40%;
-    width: 30%;
+    margin-right: 30%;
+    width: 40%;
     height: 10%;
   }
   .alert {
@@ -104,5 +98,7 @@ input {
     font-size: 22px;
     color: darkslategray;
   }
+  
+  
   
   

@@ -3,11 +3,10 @@
 <div class="container">
       <div class="row">
         <h1 style="color: navy">Registration Numbers</h1>
-        <hr>
       </div>
+      <hr>
       <div class="row">
         <label for="LocationInput">Please Select A Location</label>
-        
       </div>
       <div class="row">
         <form class="" action="/registration_numbers" method="post">
@@ -28,6 +27,7 @@
       <div class="alert-box">
       <div class="alert">{{messages.location}}</div>
       <div class="alert">{{messages.regNum}}</div>
+      <div class="confirmMsg">{{confirm}}</div>
       </div>
       <div class="row">
          <input type="text" name="regNumberInput" value="" class="col-4" placeholder="CA123">
@@ -51,6 +51,7 @@
           </ul>
         </div>
         </form>
+      </div>
          <div class="row divDisplay">
           <table>
               {{#each registration}}
@@ -58,10 +59,6 @@
               {{/each}}
           </table>
       </div>
-      </div>
-     
-      <div class="confirmMsg">{{confirm}}</div>
     </div>
-
      {{!-- pattern="[A-Z a-z]{12,}" title="Please complete the validation code: e.g, start with CA" --}}
     
