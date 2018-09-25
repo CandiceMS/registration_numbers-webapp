@@ -27,58 +27,58 @@ describe('Add and filter registration numbers for a location', function(){
     const factoryRegNumbers = RegNumbers(pool);
 
     it('should add the registration number for Cape Town', async function(){
-      let regAdd = await factoryRegNumbers.storeInDB('CA6879','cape town');
+      let regAdd = await factoryRegNumbers.storeInDB('CA 687-900','cape town');
         assert.equal(regAdd, "You added a registration number for this town!");
     });
     it('should add the registration number for Paarl', async function(){
-        let regAdd = await factoryRegNumbers.storeInDB('CJ6879','paarl');
+        let regAdd = await factoryRegNumbers.storeInDB('CJ 687-900','paarl');
           assert.equal(regAdd, "You added a registration number for this town!");
     });
     it('should add the registration number for Cape Town', async function(){
-        let regAdd = await factoryRegNumbers.storeInDB('CY6879','bellville');
+        let regAdd = await factoryRegNumbers.storeInDB('CY 687-900','bellville');
           assert.equal(regAdd, "You added a registration number for this town!");
     });
     it('should add the registration number for Cape Town', async function(){
-        let regAdd = await factoryRegNumbers.storeInDB('CL6879','stellenbosch');
+        let regAdd = await factoryRegNumbers.storeInDB('CL 687-900','stellenbosch');
           assert.equal(regAdd, "You added a registration number for this town!");
     });
 
     it('should NOT add the registration number as it does not start with the required value for Cape Town', async function(){
-        let regAdd = await factoryRegNumbers.storeInDB('CZ6879','cape town');
+        let regAdd = await factoryRegNumbers.storeInDB('CZ 687-900','cape town');
           assert.equal(regAdd, "Sorry. This is not a valid registration number for this town");
     });
     it('should NOT add the registration number as it does not start with the required value for Stellenbosch', async function(){
-        let regAdd = await factoryRegNumbers.storeInDB('CZ6879','stellenbosch');
+        let regAdd = await factoryRegNumbers.storeInDB('CZ 687-900','stellenbosch');
           assert.equal(regAdd, "Sorry. This is not a valid registration number for this town");
     });
    
     it('should NOT add a regsitration number as the requirements are incomplete', async function(){
         await factoryRegNumbers.storeInDB('', 'cape town');
         await factoryRegNumbers.storeInDB('', false);
-        await factoryRegNumbers.storeInDB('CA78906', false);
+        await factoryRegNumbers.storeInDB('CA 789-061', false);
        assert.deepEqual([], await factoryRegNumbers.returnRegNumbers());
     });
     
     it('should return only registration numbers for the selected town', async function(){
-         await factoryRegNumbers.storeInDB('CA6709','cape town');
-         await factoryRegNumbers.storeInDB('CA6879','cape town');
-         await factoryRegNumbers.storeInDB('CA680','cape town');
-         await factoryRegNumbers.storeInDB('CY679','bellville');
+         await factoryRegNumbers.storeInDB('CA 670-901','cape town');
+         await factoryRegNumbers.storeInDB('CA 687-901','cape town');
+         await factoryRegNumbers.storeInDB('CA 680-000','cape town');
+         await factoryRegNumbers.storeInDB('CY 679-130','bellville');
 
-        assert.deepEqual([{'reg_number': 'ca6709'}, {'reg_number': 'ca6879'}, {'reg_number': 'ca680'}], await factoryRegNumbers.returnFilter('cape town'));
+        assert.deepEqual([{'reg_number': 'ca 670-901'}, {'reg_number': 'ca 687-901'}, {'reg_number': 'ca 680-000'}], await factoryRegNumbers.returnFilter('cape town'));
     });
      it('should clear all values in the reg_numbers table in the database', async function(){
-         await factoryRegNumbers.storeInDB('CL6879','stellenbosch');
-         await factoryRegNumbers.storeInDB('CA6879','cape town');
-         await factoryRegNumbers.storeInDB('CA680','cape town');
-         await factoryRegNumbers.storeInDB('CY679','bellville');
+         await factoryRegNumbers.storeInDB('CL 687-978','stellenbosch');
+         await factoryRegNumbers.storeInDB('CA 687-945','cape town');
+         await factoryRegNumbers.storeInDB('CA 680-363','cape town');
+         await factoryRegNumbers.storeInDB('CY 679-589','bellville');
         assert.deepEqual([], await factoryRegNumbers.resetReg());
      });
      it('should clear all values in the towns table in the database', async function(){
-        await factoryRegNumbers.storeInDB('CL6879','stellenbosch');
-        await factoryRegNumbers.storeInDB('CA6879','cape town');
-        await factoryRegNumbers.storeInDB('CA680','cape town');
-        await factoryRegNumbers.storeInDB('CY679','bellville');
+        await factoryRegNumbers.storeInDB('CL 687-924','stellenbosch');
+        await factoryRegNumbers.storeInDB('CA 687-879','cape town');
+        await factoryRegNumbers.storeInDB('CA 680-112','cape town');
+        await factoryRegNumbers.storeInDB('CY 679-252','bellville');
        assert.deepEqual([], await factoryRegNumbers.resetReg(), await factoryRegNumbers.resetTowns());
     });
 
