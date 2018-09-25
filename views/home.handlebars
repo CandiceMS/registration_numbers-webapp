@@ -30,7 +30,7 @@
       <div class="confirmMsg">{{confirm}}</div>
       </div>
       <div class="row">
-         <input type="text" name="regNumberInput" value="" class="col-4" placeholder="CA123">
+         <input type="text" name="regNumberInput" value="" class="col-4" placeholder="CA 123-456" pattern="[A-Z a-z 0-9 -]{10}" title="Please ensure registration numbers are in the correct format, e.g CA 123-456">
       </div>
       <div class="row">
         <button type="submit" name="AddBtn" class="col-4">ADD</button>
@@ -60,5 +60,5 @@
           </table>
       </div>
     </div>
-     {{!-- pattern="[A-Z a-z]{12,}" title="Please complete the validation code: e.g, start with CA" --}}
+     
     
