@@ -34,11 +34,11 @@ describe('Add and filter registration numbers for a location', function(){
         let regAdd = await factoryRegNumbers.storeInDB('CJ 687-900','paarl');
           assert.equal(regAdd, "You added a registration number for this town!");
     });
-    it('should add the registration number for Cape Town', async function(){
+    it('should add the registration number for Bellville', async function(){
         let regAdd = await factoryRegNumbers.storeInDB('CY 687-900','bellville');
           assert.equal(regAdd, "You added a registration number for this town!");
     });
-    it('should add the registration number for Cape Town', async function(){
+    it('should add the registration number for Stellenbosch', async function(){
         let regAdd = await factoryRegNumbers.storeInDB('CL 687-900','stellenbosch');
           assert.equal(regAdd, "You added a registration number for this town!");
     });
